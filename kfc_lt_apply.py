@@ -32,7 +32,6 @@ def apply_to_job():
     print("🚀 Setting up Firefox...")
     options = Options()
     options.add_argument("--headless")
-    options.add_argument("--no-sandbox") 
     options.add_argument("--width=1920")
     options.add_argument("--height=1080")
     
