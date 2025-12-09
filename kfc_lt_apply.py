@@ -34,7 +34,7 @@ def apply_to_job():
     options = Options()
     
     # CRITICAL FLAGS FOR SERVER STABILITY
-    #options.add_argument("--headless=new") # Must use 'new' headless mode
+    options.add_argument("--headless=new") # Must use 'new' headless mode
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage") # Prevents memory crashes
     options.add_argument("--window-size=1920,1080")
