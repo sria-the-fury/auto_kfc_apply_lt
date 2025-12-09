@@ -1,0 +1,43 @@
+name: Daily KFC Apply
+
+on:
+  schedule:
+    # 06:00 UTC = 08:00 Lithuania Time (Winter/Standard)
+    # Note: In Summer (DST), this will run at 09:00 LT.
+    - cron: '0 6 * * *'
+  
+  # This allows you to run it manually from the "Actions" tab for testing
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Firefox
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y firefox
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run KFC Automation
+        run: python kfc_lt_apply.py
+
+      - name: Upload Screenshot (If Failed or Success)
+        if: always() # Runs even if the script crashes
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-screenshots
+          path: "*.png"
+          retention-days: 5
